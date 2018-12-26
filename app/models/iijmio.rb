@@ -29,5 +29,13 @@ class Iijmio
 
   def monthly_data(data)
     # TODO
+  private
+
+  # return [Datetime]
+  def format_to_datetime(str)
+    formated_date = str.gsub(/(年|月)/, '-').delete('日')
+    DateTime.parse(formated_date)
+  end
+
   end
 end
