@@ -1,0 +1,26 @@
+# Line is too long.
+Metrics/LineLength:
+  Enabled: false
+
+# Use only ascii symbols in comments.
+AsciiComments:
+  Enabled: false
+
+# Missing top level class documentation comment.
+Style/Documentation:
+  Enabled: false
+
+StringLiterals:
+  Enabled: false
+
+ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Metrics/AbcSize:
+  # The ABC size is a calculated magnitude, so this number can be a Fixnum or
+  # a Float.
+  Max: 30
+
+MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 15
