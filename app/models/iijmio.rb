@@ -7,7 +7,7 @@ class Iijmio
     @agent = Mechanize.new
   end
 
-  # return [Nokogiri::XML::NodeSet]
+  # return [Array]
   def collect_track_data
     @agent.user_agent = 'Mac Safari'
     @agent.get(Rails.application.credentials[:iij_login]) do |page|
@@ -24,7 +24,7 @@ class Iijmio
       result_page = @agent.submit(form)
       results = result_page.search('td.data2-c')
     end
-    results
+    results.map { |d| d.children.inner_text }
   end
 
   def monthly_data(data)
