@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Iijmio
+  DailyPacket = Struct.new(:date, :amount)
+
   def initialize
     @agent = Mechanize.new
   end
