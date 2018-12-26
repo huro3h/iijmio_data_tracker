@@ -27,8 +27,19 @@ class Iijmio
     results.map { |d| d.children.inner_text }
   end
 
-  def monthly_data(data)
-    # TODO
+  # return [Array]
+  def parse_monthly_data(monthly_data)
+    daily_data = monthly_data.each_slice(3).to_a
+
+    format_monthly_data = []
+    daily_data.each do |data|
+      date = format_to_datetime(data[0])
+      amount = format_to_numbers(data[1])
+      format_monthly_data << DailyPacket.new(date, amount)
+    end
+    format_monthly_data
+  end
+
   private
 
   # return [Datetime]
