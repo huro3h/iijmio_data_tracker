@@ -37,5 +37,8 @@ class Iijmio
     DateTime.parse(formated_date)
   end
 
+  # return [Integer]
+  def format_to_numbers(str)
+    str.delete("^0-9").to_i
   end
 end
