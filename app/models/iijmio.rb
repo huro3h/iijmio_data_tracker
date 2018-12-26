@@ -17,14 +17,13 @@ class Iijmio
       end.submit
     end
 
-    results = ''
     @agent.get(Rails.application.credentials[:iij_viewdata]) do |page|
       form = page.form_with(name: 'lteViewDataForm')
       form.action = Rails.application.credentials[:iij_execute_do]
       result_page = @agent.submit(form)
       results = result_page.search('td.data2-c')
+      return results.map { |d| d.children.inner_text }
     end
-    results.map { |d| d.children.inner_text }
   end
 
   # return [Array]
