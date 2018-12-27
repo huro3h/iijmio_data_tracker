@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root "packets#index"
+  namespace :admin do
+    resources :packets
+    root to: "packets#index"
+  end
 end
