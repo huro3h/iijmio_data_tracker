@@ -33,6 +33,7 @@ gem 'mechanize'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'nokogiri'
 gem 'ridgepole'
+gem 'slim-rails'
 
 group :development do
   gem 'pry-byebug'
