@@ -7,6 +7,12 @@ class Iijmio
     @agent = Mechanize.new
   end
 
+  def self.generate_packet_data
+    iijmio = Iijmio.new
+    collect_data = iijmio.collect_track_data
+    iijmio.parse_monthly_data(collect_data)
+  end
+
   # return [Array]
   def collect_track_data
     @agent.user_agent = 'Mac Safari'
