@@ -5,9 +5,12 @@ class PacketsController < ApplicationController
     # @packets = Packet.last
   end
 
-  private
-
-  def packet_params
-    params.require(:packet).permit(:amount, :used_at)
+  def execute
+    sync_packet = SyncPacket.new
+    sync_packet.execute
   end
+
+  # def packet_params
+  #   params.require(:packet).permit(:amount, :used_at)
+  # end
 end
