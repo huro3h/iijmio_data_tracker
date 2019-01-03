@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :packets
       root to: "packets#index"
     end
-  root to: "packets#index"
+  resources :packets, only: :index
   get 'packets/execute', to: 'packets#execute'
+
+  root to: "packets#index"
 end
