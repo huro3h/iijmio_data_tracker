@@ -4,6 +4,6 @@ class Packet < ApplicationRecord
   validates :used_at, uniqueness: true
 
   def self.latest?
-    Date.today == self.last.used_at.to_date
+    Date.yesterday == self.last.used_at.to_date
   end
 end
