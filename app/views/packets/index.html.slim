@@ -1,11 +1,16 @@
 / frozen_string_literal: true
 
-
-.container
+.container style=("margin-top: 15px;")
   = button_to('最新の情報に更新', { action: :execute }, method: :get , class: 'btn btn-outline-primary' )
-  span 今月の使用量 #{Packet.current_month.total_amount} MB
-  br
-  span 残り容量 #{6000 - Packet.current_month.total_amount} MB
+  .row style=("margin: 10px 0px 0px 0px;")
+    .col-xs-3 style=("margin-right: 10px;")
+      span 今月の使用量 #{Packet.current_month.total_amount} MB
+      br
+      span 残り容量 #{6000 - Packet.current_month.total_amount} MB
+    .col-xs-8
+      span 先月の使用量 #{Packet.last_month.total_amount} MB
+      br
+      span 残り容量 #{6000 - Packet.last_month.total_amount} MB
 
 .container style=("margin-top: 15px;")
   table.table.table-sm
