@@ -9,6 +9,6 @@ class Packet < ApplicationRecord
   scope :total_amount, -> { pluck(:amount).sum }
 
   def self.not_latest?
-    Date.yesterday != self.order(used_at: :desc).first.used_at
+    Date.today.yesterday != self.order(used_at: :desc).first.used_at
   end
 end
