@@ -81,4 +81,4 @@ doc/
 .DS_Store
 .idea
 secret.yml
-database.yml
+config/database.yml
