@@ -1,0 +1,9 @@
+test:
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+  database: <%= ENV['DB_NAME'] || 'iijmio_data_tracker_test' %>
+  host: 127.0.0.1
