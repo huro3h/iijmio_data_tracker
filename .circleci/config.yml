@@ -1,0 +1,52 @@
+ruby_image: &ruby_image
+  circleci/ruby:2.6.0-node-browsers
+
+bundle_cache_key: &bundle_cache_key
+  bundle-{{ checksum "Gemfile.lock" }}
+
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: *ruby_image
+        environment:
+          RAILS_ENV: 'test'
+          RACK_ENV: 'test'
+          DB_HOST: 127.0.0.1
+          DB_NAME: 'circle_ruby_test'
+          DB_USERNAME: 'root'
+      - image: circleci/mysql:5.7.24
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_HOST: '%'
+    parallelism: 1
+    working_directory: ~/myProjects/iijmio_data_tracker
+    steps:
+      - checkout
+      - type: cache-restore
+        name: Restore bundle cache
+        key: *bundle_cache_key
+
+      - run: bundle install -j4 --retry=3 --path vendor/bundle
+
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: *bundle_cache_key
+        paths: vendor/bundle
+
+      # Wait for DB
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+
+      # Setup the database
+      - run: RAILS_ENV=test bundle exec rake db:create
+
+      # Setup the environment
+      - run: bundle exec ridgepole -E test -c config/database.yml --apply -f db/Schemafile
+
+      # Run the tests
+      # - run: bundle exec rspec spec/
