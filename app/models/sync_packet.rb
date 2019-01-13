@@ -6,7 +6,7 @@ class SyncPacket
       shape_data = Iijmio.generate_packet_data
       shape_data.each do |daily_data|
         packet = Packet.new(amount: daily_data.amount, used_at: daily_data.date)
-        packet.save!
+        packet.save ? packet.save : return
       end
     end
   end
